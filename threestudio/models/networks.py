@@ -238,7 +238,7 @@ class VanillaMLP(nn.Module):
     def forward(self, x):
         # disable autocast
         # strange that the parameters will have empty gradients if autocast is enabled in AMP
-        with torch.cuda.amp.autocast(enabled=False):
+        with torch.amp.autocast('cuda',enabled=False):
             x = self.layers(x)
             x = self.output_activation(x)
         return x
@@ -282,7 +282,7 @@ class SphereInitVanillaMLP(nn.Module):
     def forward(self, x):
         # disable autocast
         # strange that the parameters will have empty gradients if autocast is enabled in AMP
-        with torch.cuda.amp.autocast(enabled=False):
+        with torch.amp.autocast('cuda',enabled=False):
             x = self.layers(x)
             x = self.output_activation(x)
         return x

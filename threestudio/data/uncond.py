@@ -491,7 +491,7 @@ class RandomCameraDataModule(pl.LightningDataModule):
             dataset,
             # very important to disable multi-processing if you want to change self attributes at runtime!
             # (for example setting self.width and self.height in update_step)
-            num_workers=0,  # type: ignore
+            num_workers=9,  # type: ignore
             batch_size=batch_size,
             collate_fn=collate_fn,
         )

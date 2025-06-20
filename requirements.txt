@@ -2,17 +2,19 @@ lightning==2.0.0
 omegaconf==2.3.0
 jaxtyping
 typeguard
-git+https://github.com/KAIR-BAIR/nerfacc.git@v0.5.2
-git+https://github.com/NVlabs/tiny-cuda-nn/#subdirectory=bindings/torch
+#git+https://github.com/KAIR-BAIR/nerfacc.git@v0.5.2
+nerfacc==0.5.2
+#git+https://github.com/NVlabs/tiny-cuda-nn/#subdirectory=bindings/torch
 diffusers<0.20
-transformers==4.28.1
+transformers
 accelerate
 opencv-python
 tensorboard
 matplotlib
 imageio>=2.28.0
 imageio[ffmpeg]
-git+https://github.com/NVlabs/nvdiffrast.git
+#git+https://github.com/NVlabs/nvdiffrast.git
+diffrp-nvdiffrast
 libigl
 xatlas
 trimesh[easy]
@@ -20,12 +22,13 @@ networkx
 pysdf
 PyMCubes
 wandb
-gradio==4.11.0
-git+https://github.com/ashawkey/envlight.git
+#gradio==4.11.0
+#git+https://github.com/ashawkey/envlight.git
+envlight 
 torchmetrics
 
 # deepfloyd
-xformers
+xformers>=0.0.30
 bitsandbytes==0.38.1
 sentencepiece
 safetensors
@@ -35,7 +38,7 @@ huggingface_hub
 einops
 kornia
 taming-transformers-rom1504
-git+https://github.com/openai/CLIP.git
-
+#git+https://github.com/openai/CLIP.git
+clip-openai
 #controlnet
 controlnet_aux

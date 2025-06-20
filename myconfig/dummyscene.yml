@@ -1,0 +1,26 @@
+path_prefix: "/home/ids/skhairi/Code/GenZI/data/pre_trained_gaussian_splats/dummyscene3"
+camera:
+    # focal
+    fx: 1035.49659905
+    fy: 1034.97186374438
+    # principal point 
+    x0: 666.
+    y0: 438.
+    # initial camera position in world space 
+    camera_center: [7., 0., 20.] #[20., 0., 5.] #[0., 0., -20] 
+    # target position in world space 
+    target_center: [7. ,0. ,0.] #[0., 0., 5.] #[0., 0., 0.] 
+    # field of view 
+    FoVx: 1.1431171654164658
+    FoVy: 0.8006899358019289
+    # image size 
+    image_width: 1332.
+    image_height: 876.
+    # rotation angles 
+    angles: [0, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10]
+    render_path: "${path_prefix}/rendered_views/"
+
+gaussians:
+  sh_degree: 3
+  gaussian_path: "${path_prefix}/dummygaussian3.ply"
+    

@@ -103,9 +103,11 @@ class SaverMixin:
         ]
         img = np.concatenate(imgs, axis=1)
         if rgba:
-            img = cv2.cvtColor(img, cv2.COLOR_RGBA2BGRA)
+            #img = cv2.cvtColor(img, cv2.COLOR_RGBA2BGRA)
+            img = img[:, :, [3, 2, 1, 0]]
         else:
-            img = cv2.cvtColor(img, cv2.COLOR_RGB2BGR)
+            #img = cv2.cvtColor(img, cv2.COLOR_RGB2BGR)
+            img = img[:, :, [2, 1, 0]]
         return img
 
     def _save_rgb_image(

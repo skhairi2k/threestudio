@@ -1,0 +1,24 @@
+path_prefix: "/home/ids/skhairi/Code/GenZI/data/pre_trained_gaussian_splats/dummyscene3"
+camera:
+    # focal
+    fx: 1035.49659905
+    fy: 1034.97186374438
+    # principal point 
+    x0: 666.
+    y0: 438.
+    # target position in world space 
+    target_center: [0. ,0. ,0.] #[0., 0., 5.] #[0., 0., 0.] 
+    # field of view 
+    FoVx: 1.1431171654164658
+    FoVy: 0.8006899358019289
+    # image size 
+    image_width: 1024.
+    image_height: 1024.
+    # rotation angles 
+    n_views: 120
+    azimuth_range: [0,360]
+    elevation_deg: 15
+    camera_distance: 5
+    render_path: "${path_prefix}/rendered_views/"
+
+    

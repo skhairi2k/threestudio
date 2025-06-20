@@ -42,12 +42,14 @@ class _TruncExp(Function):  # pylint: disable=abstract-method
     # Implementation from torch-ngp:
     # https://github.com/ashawkey/torch-ngp/blob/93b08a0d4ec1cc6e69d85df7f0acdfb99603b628/activation.py
     @staticmethod
+    # @torch.amp.custom_fwd(cast_inputs=torch.float32, device_type='cuda')
     @custom_fwd(cast_inputs=torch.float32)
     def forward(ctx, x):  # pylint: disable=arguments-differ
         ctx.save_for_backward(x)
         return torch.exp(x)
 
     @staticmethod
+    # @torch.amp.custom_bwd(device_type='cuda')
     @custom_bwd
     def backward(ctx, g):  # pylint: disable=arguments-differ
         x = ctx.saved_tensors[0]
@@ -58,13 +60,15 @@ class SpecifyGradient(Function):
     # Implementation from stable-dreamfusion
     # https://github.com/ashawkey/stable-dreamfusion
     @staticmethod
-    @custom_fwd
+    # @torch.amp.custom_fwd(cast_inputs=torch.float32, device_type='cuda')
+    @custom_fwd(cast_inputs=torch.float32)
     def forward(ctx, input_tensor, gt_grad):
         ctx.save_for_backward(gt_grad)
         # we return a dummy value 1, which will be scaled by amp's scaler so we get the scale in backward.
         return torch.ones([1], device=input_tensor.device, dtype=input_tensor.dtype)
 
     @staticmethod
+    # @torch.amp.custom_bwd(device_type='cuda')
     @custom_bwd
     def backward(ctx, grad_scale):
         (gt_grad,) = ctx.saved_tensors
@@ -394,7 +398,7 @@ def get_fov_gaussian(P):
     fovX = math.atan(tanHalfFovX) * 2
     return fovX, fovY
 
-
+@torch.amp.autocast('cuda', enabled=False)
 def get_cam_info_gaussian(c2w, fovx, fovy, znear, zfar):
     c2w = convert_pose(c2w)
     world_view_transform = torch.inverse(c2w)

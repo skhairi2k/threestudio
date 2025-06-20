@@ -284,7 +284,7 @@ class Zero123UnifiedGuidance(BaseModule):
 
         return image_camera_embeddings
 
-    @torch.cuda.amp.autocast(enabled=False)
+    @torch.amp.autocast('cuda',enabled=False)
     def forward_unet(
         self,
         unet: UNet2DConditionModel,
@@ -313,7 +313,7 @@ class Zero123UnifiedGuidance(BaseModule):
             ].view(-1, 1, 1, 1)
         return pred.to(input_dtype)
 
-    @torch.cuda.amp.autocast(enabled=False)
+    @torch.amp.autocast('cuda',enabled=False)
     def vae_encode(
         self, vae: AutoencoderKL, imgs: Float[Tensor, "B 3 H W"], mode=False
     ) -> Float[Tensor, "B 4 Hl Wl"]:
@@ -327,7 +327,7 @@ class Zero123UnifiedGuidance(BaseModule):
         latents = latents * vae.config.scaling_factor
         return latents.to(input_dtype)
 
-    @torch.cuda.amp.autocast(enabled=False)
+    @torch.amp.autocast('cuda',enabled=False)
     def vae_decode(
         self, vae: AutoencoderKL, latents: Float[Tensor, "B 4 Hl Wl"]
     ) -> Float[Tensor, "B 3 H W"]:
@@ -664,7 +664,7 @@ class Zero123UnifiedGuidance(BaseModule):
                 solver_order=1,
                 num_train_timesteps=int(t[0]),
             ) as pipe:
-                with torch.cuda.amp.autocast(enabled=False):
+                with torch.amp.autocast('cuda',enabled=False):
                     latents_multistep_orig = pipe(
                         num_inference_steps=self.cfg.n_rgb_multistep_orig_steps,
                         guidance_scale=self.cfg.guidance_scale,

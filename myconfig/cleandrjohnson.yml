@@ -1,0 +1,27 @@
+path_prefix: "/home/ids/skhairi/Code/GenZI/data/pre_trained_gaussian_splats/cleandrjohnson"
+camera:
+    # focal
+    fx: 1035.49659905
+    fy: 1034.97186374438
+    # principal point 
+    x0: 666.
+    y0: 438.
+    # initial camera position in world space 
+    camera_center: [-4.9, -1, -1.5]
+    # target position in world space 0.
+    target_center: [-4.9, -1, 1.35] 
+    # field of view 
+    FoVx: 1.1431171654164658
+    FoVy: 0.8006899358019289
+    # image size 
+    image_width: 1332.
+    image_height: 876.
+    # rotation angles 
+    angles: [0, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10]
+    #[-40, 10, 10, 10, 10, 10, 10, 10, 10]
+    render_path: "${path_prefix}/rendered_views/"
+
+gaussians:
+  sh_degree: 3
+  gaussian_path: "${path_prefix}/point_cloud.ply"
+    

@@ -141,12 +141,12 @@ class Zero123Guidance(BaseObject):
 
         threestudio.info(f"Loaded Zero123!")
 
-    @torch.cuda.amp.autocast(enabled=False)
+    @torch.amp.autocast('cuda',enabled=False)
     def set_min_max_steps(self, min_step_percent=0.02, max_step_percent=0.98):
         self.min_step = int(self.num_train_timesteps * min_step_percent)
         self.max_step = int(self.num_train_timesteps * max_step_percent)
 
-    @torch.cuda.amp.autocast(enabled=False)
+    @torch.amp.autocast('cuda',enabled=False)
     def prepare_embeddings(self, image_path: str) -> None:
         # load cond image for zero123
         assert os.path.exists(image_path)
@@ -169,7 +169,7 @@ class Zero123Guidance(BaseObject):
         )
         self.c_crossattn, self.c_concat = self.get_img_embeds(self.rgb_256)
 
-    @torch.cuda.amp.autocast(enabled=False)
+    @torch.amp.autocast('cuda',enabled=False)
     @torch.no_grad()
     def get_img_embeds(
         self,
@@ -180,7 +180,7 @@ class Zero123Guidance(BaseObject):
         c_concat = self.model.encode_first_stage(img.to(self.weights_dtype)).mode()
         return c_crossattn, c_concat
 
-    @torch.cuda.amp.autocast(enabled=False)
+    @torch.amp.autocast('cuda',enabled=False)
     def encode_images(
         self, imgs: Float[Tensor, "B 3 256 256"]
     ) -> Float[Tensor, "B 4 32 32"]:
@@ -191,7 +191,7 @@ class Zero123Guidance(BaseObject):
         )
         return latents.to(input_dtype)  # [B, 4, 32, 32] Latent space image
 
-    @torch.cuda.amp.autocast(enabled=False)
+    @torch.amp.autocast('cuda',enabled=False)
     def decode_latents(
         self,
         latents: Float[Tensor, "B 4 H W"],
@@ -201,7 +201,7 @@ class Zero123Guidance(BaseObject):
         image = (image * 0.5 + 0.5).clamp(0, 1)
         return image.to(input_dtype)
 
-    @torch.cuda.amp.autocast(enabled=False)
+    @torch.amp.autocast('cuda',enabled=False)
     @torch.no_grad()
     def get_cond(
         self,
@@ -347,7 +347,7 @@ class Zero123Guidance(BaseObject):
 
         return guidance_out
 
-    @torch.cuda.amp.autocast(enabled=False)
+    @torch.amp.autocast('cuda',enabled=False)
     @torch.no_grad()
     def guidance_eval(self, cond, t_orig, latents_noisy, noise_pred):
         # use only 50 timesteps, and find nearest of those to t

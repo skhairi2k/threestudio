@@ -381,7 +381,7 @@ def add_resize(img, sf=4):
 #         L = noise_level2 / 255.
 #         D = np.diag(np.random.rand(3))
 #         U = orth(np.random.rand(3, 3))
-#         conv = np.dot(np.dot(np.transpose(U), D), U)
+#         conv = np.dot(np.dot(npU), D), U)
 #         img += np.random.multivariate_normal([0, 0, 0], np.abs(L ** 2 * conv), img.shape[:2]).astype(np.float32)
 #     img = np.clip(img, 0.0, 1.0)
 #     return img

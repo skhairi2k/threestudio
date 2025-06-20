@@ -280,7 +280,7 @@ class StableDiffusionUnifiedGuidance(BaseModule):
 
             tomesd.apply_patch(pipe.unet, **self.cfg.token_merging_params)
 
-    @torch.cuda.amp.autocast(enabled=False)
+    @torch.amp.autocast('cuda',enabled=False)
     def forward_unet(
         self,
         unet: UNet2DConditionModel,
@@ -309,7 +309,7 @@ class StableDiffusionUnifiedGuidance(BaseModule):
             ].view(-1, 1, 1, 1)
         return pred.to(input_dtype)
 
-    @torch.cuda.amp.autocast(enabled=False)
+    @torch.amp.autocast('cuda',enabled=False)
     def vae_encode(
         self, vae: AutoencoderKL, imgs: Float[Tensor, "B 3 H W"], mode=False
     ) -> Float[Tensor, "B 4 Hl Wl"]:
@@ -323,7 +323,7 @@ class StableDiffusionUnifiedGuidance(BaseModule):
         latents = latents * vae.config.scaling_factor
         return latents.to(input_dtype)
 
-    @torch.cuda.amp.autocast(enabled=False)
+    @torch.amp.autocast('cuda',enabled=False)
     def vae_decode(
         self, vae: AutoencoderKL, latents: Float[Tensor, "B 4 Hl Wl"]
     ) -> Float[Tensor, "B 3 H W"]:
@@ -710,7 +710,7 @@ class StableDiffusionUnifiedGuidance(BaseModule):
                     self.cfg.view_dependent_prompting,
                 )
                 text_embeddings_cond, text_embeddings_uncond = text_embeddings.chunk(2)
-                with torch.cuda.amp.autocast(enabled=False):
+                with torch.amp.autocast('cuda',enabled=False):
                     latents_multistep_orig = pipe(
                         num_inference_steps=self.cfg.n_rgb_multistep_orig_steps,
                         guidance_scale=self.cfg.guidance_scale,
@@ -745,7 +745,7 @@ class StableDiffusionUnifiedGuidance(BaseModule):
 
         return guidance_out
 
-    @torch.cuda.amp.autocast(enabled=False)
+    @torch.amp.autocast('cuda',enabled=False)
     def set_min_max_steps(self, min_step_percent=0.02, max_step_percent=0.98):
         self.min_step = int(self.num_train_timesteps * min_step_percent)
         self.max_step = int(self.num_train_timesteps * max_step_percent)

@@ -6,7 +6,9 @@ import os
 import sys
 import time
 import traceback
-
+import wandb
+from omegaconf import OmegaConf
+from huggingface_hub import login
 
 class ColoredFilter(logging.Filter):
     """
@@ -160,7 +162,10 @@ def main(args, extras) -> None:
 
     # parse YAML config to OmegaConf
     cfg: ExperimentConfig
-    cfg = load_config(args.config, cli_args=extras, n_gpus=n_gpus)
+    cfg = load_config(args.config, cli_args=extras, n_gpus=n_gpus) 
+    # Combine configuration from both the YAML configuration file and the command lines. 
+    # args.config = yaml filename 'custom/threestudio-3dgs/configs/gaussian_splatting_mvdream.yaml'
+    # extras = command line arguments "system.prompt_processor.prompt='an astronaut riding a horse' "
 
     # set a different seed for each device
     pl.seed_everything(cfg.seed + get_rank(), workers=True)
@@ -169,6 +174,7 @@ def main(args, extras) -> None:
     system: BaseSystem = threestudio.find(cfg.system_type)(
         cfg.system, resumed=cfg.resume is not None
     )
+
     system.set_save_dir(os.path.join(cfg.trial_dir, "save"))
 
     if args.gradio:
@@ -210,6 +216,9 @@ def main(args, extras) -> None:
 
     loggers = []
     if args.train:
+        
+        dict_cfg = OmegaConf.to_container(cfg["system"])
+        wandb.init(project="SDS loss with 3DGS+MVDream", config=dict_cfg)
         # make tensorboard logging dir to suppress warning
         rank_zero_only(
             lambda: os.makedirs(os.path.join(cfg.trial_dir, "tb_logs"), exist_ok=True)
