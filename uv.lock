@@ -2141,6 +2141,7 @@ dependencies = [
     { name = "setuptools-rust", marker = "platform_machine == 'x86_64' and sys_platform == 'linux'" },
     { name = "taming-transformers-rom1504", marker = "platform_machine == 'x86_64' and sys_platform == 'linux'" },
     { name = "tensorboard", marker = "platform_machine == 'x86_64' and sys_platform == 'linux'" },
+    { name = "tinycudann", marker = "platform_machine == 'x86_64' and sys_platform == 'linux'" },
     { name = "tokenizers", marker = "platform_machine == 'x86_64' and sys_platform == 'linux'" },
     { name = "torch", marker = "platform_machine == 'x86_64' and sys_platform == 'linux'" },
     { name = "torchmetrics", marker = "platform_machine == 'x86_64' and sys_platform == 'linux'" },
@@ -2183,6 +2184,7 @@ requires-dist = [
     { name = "setuptools-rust", specifier = ">=1.11.1" },
     { name = "taming-transformers-rom1504", specifier = ">=0.0.6" },
     { name = "tensorboard", specifier = ">=2.19.0" },
+    { name = "tinycudann", git = "https://github.com/NVlabs/tiny-cuda-nn/?subdirectory=bindings%2Ftorch" },
     { name = "tokenizers", specifier = ">=0.21" },
     { name = "torch", specifier = "==2.7.0" },
     { name = "torchmetrics", specifier = ">=1.7.3" },
@@ -2221,6 +2223,11 @@ sdist = { url = "https://files.pythonhosted.org/packages/bc/0c/66b0f9b4a4cb9ffda
 wheels = [
     { url = "https://files.pythonhosted.org/packages/6c/d0/179abca8b984b3deefd996f362b612c39da73b60f685921e6cd58b6125b4/timm-1.0.15-py3-none-any.whl", hash = "sha256:5a3dc460c24e322ecc7fd1f3e3eb112423ddee320cb059cc1956fbc9731748ef", size = 2361373, upload-time = "2025-02-23T05:05:53.601Z" },
 ]
+
+[[package]]
+name = "tinycudann"
+version = "1.7"
+source = { git = "https://github.com/NVlabs/tiny-cuda-nn/?subdirectory=bindings%2Ftorch#48d6989c95def307a40baf176b2d6015dada19f9" }
 
 [[package]]
 name = "tokenizers"
